@@ -1,27 +1,27 @@
 ﻿<Window x:Class="MusicPlayerProject.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MusicPlayerProject.Views"
-        xmlns:vm="clr-namespace:MusicPlayerProject.ViewModels"
         xmlns:converter="clr-namespace:MusicPlayerProject.Converters"
-        mc:Ignorable="d"
-        Title="MainWindow"
-        Height="685"
-        Width="366"
-        WindowStartupLocation="CenterScreen"
-        Style="{StaticResource DefaultWindowStyle}"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:MusicPlayerProject.Views"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:MusicPlayerProject.ViewModels"
         x:Name="WinMain"
+        Title="MainWindow"
+        Width="366"
+        Height="685"
         MouseMove="WinMain_MouseMove"
-        MouseUp="WinMain_MouseUp">
-    <!--Start DataContext-->
+        MouseUp="WinMain_MouseUp"
+        Style="{StaticResource DefaultWindowStyle}"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+    <!--  Start DataContext  -->
     <Window.DataContext>
         <vm:MainViewModel x:Name="ViewModel" />
     </Window.DataContext>
-    <!--End DataContext-->
+    <!--  End DataContext  -->
 
-    <!--Start Window Resources-->
+    <!--  Start Window Resources  -->
     <Window.Resources>
         <BitmapImage x:Key="MusicCoverDefaultImage"
                      UriSource="/Assets/Images/default-cover.png" />
@@ -30,22 +30,18 @@
 
         <Style x:Key="SliderIncreaseRepeatButton"
                TargetType="RepeatButton">
-            <Setter Property="SnapsToDevicePixels"
-                    Value="true" />
-            <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
-            <Setter Property="IsTabStop"
-                    Value="false" />
-            <Setter Property="Focusable"
-                    Value="false" />
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Focusable" Value="false" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
-                        <Border BorderThickness="0"
+                        <Border Height="5"
+                                Margin="-2,0,0,0"
                                 Background="{StaticResource SCB_704040}"
-                                Height="5"
-                                CornerRadius="0, 2.5, 2.5, 0"
-                                Margin="-2, 0, 0, 0" />
+                                BorderThickness="0"
+                                CornerRadius="0, 2.5, 2.5, 0" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -53,19 +49,17 @@
 
         <Style x:Key="SliderDecreaseRepeatButton"
                TargetType="RepeatButton">
-            <Setter Property="SnapsToDevicePixels"
-                    Value="true" />
-            <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
-                        <Border SnapsToDevicePixels="True"
+                        <Border Height="5"
+                                Margin="0,0,-2,0"
                                 Background="{StaticResource SCB_FFFFFF}"
                                 BorderThickness="0"
-                                Height="5"
-                                Margin="0, 0, -2, 0"
-                                CornerRadius="2.5, 0, 0, 2.5" />
+                                CornerRadius="2.5, 0, 0, 2.5"
+                                SnapsToDevicePixels="True" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -73,33 +67,25 @@
 
         <Style x:Key="SliderThumb"
                TargetType="Thumb">
-            <Setter Property="SnapsToDevicePixels"
-                    Value="true" />
-            <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Thumb">
-                        <Ellipse Height="10"
+                        <Ellipse x:Name="SliderThumb"
                                  Width="10"
+                                 Height="10"
+                                 Margin="0,-2.5"
                                  Fill="{StaticResource SCB_FFFFFF}"
-                                 Margin="0, -2.5"
-                                 x:Name="SliderThumb"
                                  MouseDown="SliderThumb_MouseDown" />
 
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver"
-                                     Value="True">
-                                <Setter TargetName="SliderThumb"
-                                        Property="Fill"
-                                        Value="{StaticResource SCB_704040}" />
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="SliderThumb" Property="Fill" Value="{StaticResource SCB_704040}" />
                             </Trigger>
 
-                            <Trigger Property="IsDragging"
-                                     Value="True">
-                                <Setter TargetName="SliderThumb"
-                                        Property="Fill"
-                                        Value="{StaticResource SCB_704040}" />
+                            <Trigger Property="IsDragging" Value="True">
+                                <Setter TargetName="SliderThumb" Property="Fill" Value="{StaticResource SCB_704040}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -116,15 +102,15 @@
                                    MinHeight="{TemplateBinding MinHeight}" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Track Grid.Row="1"
-                       x:Name="PART_Track">
+                <Track x:Name="PART_Track"
+                       Grid.Row="1">
                     <Track.DecreaseRepeatButton>
-                        <RepeatButton Style="{StaticResource SliderDecreaseRepeatButton}"
-                                      Command="Slider.DecreaseLarge" />
+                        <RepeatButton Command="Slider.DecreaseLarge"
+                                      Style="{StaticResource SliderDecreaseRepeatButton}" />
                     </Track.DecreaseRepeatButton>
                     <Track.IncreaseRepeatButton>
-                        <RepeatButton Style="{StaticResource SliderIncreaseRepeatButton}"
-                                      Command="Slider.IncreaseLarge" />
+                        <RepeatButton Command="Slider.IncreaseLarge"
+                                      Style="{StaticResource SliderIncreaseRepeatButton}" />
                     </Track.IncreaseRepeatButton>
                     <Track.Thumb>
                         <Thumb Style="{StaticResource SliderThumb}" />
@@ -135,35 +121,30 @@
 
         <Style x:Key="HorizontalSliderStyle"
                TargetType="Slider">
-            <Setter Property="Focusable"
-                    Value="False" />
-            <Setter Property="SnapsToDevicePixels"
-                    Value="true" />
-            <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
             <Style.Triggers>
-                <Trigger Property="Orientation"
-                         Value="Horizontal">
-                    <Setter Property="Template"
-                            Value="{StaticResource Slider}" />
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="Template" Value="{StaticResource Slider}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <ControlTemplate x:Key="MusicListTemptale"
                          TargetType="{x:Type ListBox}">
-            <Border Background="{TemplateBinding Background}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
+            <Border Height="{TemplateBinding Height}"
                     Margin="{TemplateBinding Margin}"
                     Padding="{TemplateBinding Padding}"
-                    CornerRadius="10"
-                    Height="{TemplateBinding Height}">
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                              VerticalScrollBarVisibility="Hidden"
-                              Margin="0"
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="10">
+                <ScrollViewer Margin="0"
                               Padding="0"
                               BorderThickness="0"
-                              CanContentScroll="False">
+                              CanContentScroll="False"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Hidden">
                     <ItemsPresenter HorizontalAlignment="Stretch"
                                     VerticalAlignment="Top" />
                 </ScrollViewer>
@@ -172,88 +153,67 @@
 
         <Style x:Key="MusicListItemDurationTitleStyle"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground"
-                    Value="{StaticResource SCB_FFFFFF}" />
-            <Setter Property="FontFamily"
-                    Value="{StaticResource Samim}" />
-            <Setter Property="FontSize"
-                    Value="12" />
+            <Setter Property="Foreground" Value="{StaticResource SCB_FFFFFF}" />
+            <Setter Property="FontFamily" Value="{StaticResource Samim}" />
+            <Setter Property="FontSize" Value="12" />
 
-            <!--Triggers-->
+            <!--  Triggers  -->
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}, Path=IsMouseOver}"
                              Value="True">
-                    <Setter Property="Foreground"
-                            Value="{StaticResource SCB_704040}" />
+                    <Setter Property="Foreground" Value="{StaticResource SCB_704040}" />
                 </DataTrigger>
 
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsMouseOver}"
                              Value="True">
-                    <Setter Property="Foreground"
-                            Value="{StaticResource SCB_FFFFFF}" />
+                    <Setter Property="Foreground" Value="{StaticResource SCB_FFFFFF}" />
                 </DataTrigger>
 
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}"
                              Value="True">
-                    <Setter Property="Foreground"
-                            Value="{StaticResource SCB_FFFFFF}" />
+                    <Setter Property="Foreground" Value="{StaticResource SCB_FFFFFF}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
         <Style x:Key="MusicListItemDurationStyle"
-               TargetType="{x:Type TextBlock}"
-               BasedOn="{StaticResource MusicListItemDurationTitleStyle}">
-            <Setter Property="VerticalAlignment"
-                    Value="Top" />
-            <Setter Property="HorizontalAlignment"
-                    Value="Left" />
+               BasedOn="{StaticResource MusicListItemDurationTitleStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
         </Style>
 
         <Style x:Key="MusicListItemTitleStyle"
-               TargetType="{x:Type TextBlock}"
-               BasedOn="{StaticResource MusicListItemDurationTitleStyle}">
-            <Setter Property="VerticalAlignment"
-                    Value="Top" />
-            <Setter Property="HorizontalAlignment"
-                    Value="Stretch" />
-            <Setter Property="TextAlignment"
-                    Value="Right" />
-            <Setter Property="TextTrimming"
-                    Value="CharacterEllipsis" />
-            <Setter Property="TextWrapping"
-                    Value="NoWrap" />
-            <Setter Property="Margin"
-                    Value="0, 0, 0, 5" />
+               BasedOn="{StaticResource MusicListItemDurationTitleStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+            <Setter Property="TextWrapping" Value="NoWrap" />
+            <Setter Property="Margin" Value="0,0,0,5" />
         </Style>
 
         <Style x:Key="MusicListItemCaptionStyle"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="HorizontalAlignment"
-                    Value="Stretch" />
-            <Setter Property="TextAlignment"
-                    Value="Right" />
-            <Setter Property="Foreground"
-                    Value="{StaticResource SCB_B2B2B2}" />
-            <Setter Property="FontSize"
-                    Value="12" />
-            <Setter Property="FontFamily"
-                    Value="{StaticResource Samim}" />
-            <Setter Property="TextTrimming"
-                    Value="CharacterEllipsis" />
-            <Setter Property="TextWrapping"
-                    Value="NoWrap" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="Foreground" Value="{StaticResource SCB_B2B2B2}" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="{StaticResource Samim}" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+            <Setter Property="TextWrapping" Value="NoWrap" />
         </Style>
 
         <ControlTemplate x:Key="MusicListItemTemplate"
                          TargetType="{x:Type ListBoxItem}">
-            <Border Background="{TemplateBinding Background}"
-                    CornerRadius="0"
+            <Border x:Name="MusicListItemBorder"
+                    Height="{TemplateBinding Height}"
                     Margin="{TemplateBinding Margin}"
                     Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    Height="{TemplateBinding Height}"
-                    x:Name="MusicListItemBorder">
+                    CornerRadius="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -261,27 +221,27 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <!--Start Music Duration-->
+                    <!--  Start Music Duration  -->
                     <TextBlock Grid.Column="0"
-                               Text="{Binding Duration}"
-                               Style="{StaticResource MusicListItemDurationStyle}" />
-                    <!--End Music Duration-->
+                               Style="{StaticResource MusicListItemDurationStyle}"
+                               Text="{Binding Duration}" />
+                    <!--  End Music Duration  -->
 
-                    <!--Start Title and Description-->
+                    <!--  Start Title and Description  -->
                     <StackPanel Grid.Column="1"
-                                Orientation="Vertical"
-                                Margin="15, 0">
+                                Margin="15,0"
+                                Orientation="Vertical">
                         <TextBlock Grid.Row="0"
-                                   Text="{Binding Title}"
-                                   Style="{StaticResource MusicListItemTitleStyle}" />
+                                   Style="{StaticResource MusicListItemTitleStyle}"
+                                   Text="{Binding Title}" />
 
                         <TextBlock Grid.Row="0"
-                                   Text="{Binding Caption}"
-                                   Style="{StaticResource MusicListItemCaptionStyle}" />
+                                   Style="{StaticResource MusicListItemCaptionStyle}"
+                                   Text="{Binding Caption}" />
                     </StackPanel>
-                    <!--End Title and Description-->
+                    <!--  End Title and Description  -->
 
-                    <!--Start Music Cover-->
+                    <!--  Start Music Cover  -->
                     <Rectangle Grid.Column="2"
                                Width="43"
                                Height="43"
@@ -291,89 +251,64 @@
                             <ImageBrush ImageSource="{Binding Cover, TargetNullValue={StaticResource MusicCoverDefaultImage}, FallbackValue={StaticResource MusicCoverDefaultImage}}" />
                         </Rectangle.Fill>
                     </Rectangle>
-                    <!--End Music Cover-->
+                    <!--  End Music Cover  -->
                 </Grid>
             </Border>
 
-            <!--Triggers-->
+            <!--  Triggers  -->
             <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter TargetName="MusicListItemBorder"
-                            Property="CornerRadius"
-                            Value="10" />
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="MusicListItemBorder" Property="CornerRadius" Value="10" />
                 </Trigger>
 
-                <Trigger Property="IsSelected"
-                         Value="True">
-                    <Setter TargetName="MusicListItemBorder"
-                            Property="CornerRadius"
-                            Value="10" />
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter TargetName="MusicListItemBorder" Property="CornerRadius" Value="10" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
 
         <Style x:Key="MusicListItemStyle"
                TargetType="{x:Type ListBoxItem}">
-            <Setter Property="Margin"
-                    Value="0" />
-            <Setter Property="Padding"
-                    Value="15, 11" />
-            <Setter Property="Background"
-                    Value="{StaticResource SCB_TransParent}" />
-            <Setter Property="Height"
-                    Value="65" />
-            <Setter Property="BorderThickness"
-                    Value="0" />
-            <Setter Property="HorizontalAlignment"
-                    Value="Stretch" />
-            <Setter Property="Template"
-                    Value="{StaticResource MusicListItemTemplate}" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="15,11" />
+            <Setter Property="Background" Value="{StaticResource SCB_TransParent}" />
+            <Setter Property="Height" Value="65" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Template" Value="{StaticResource MusicListItemTemplate}" />
 
-            <!--Triggers-->
+            <!--  Triggers  -->
             <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="{StaticResource SCB_704040}" />
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SCB_704040}" />
                 </Trigger>
 
-                <Trigger Property="IsSelected"
-                         Value="True">
-                    <Setter Property="Background"
-                            Value="{StaticResource SCB_704040}" />
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SCB_704040}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <Style x:Key="MusicList"
                TargetType="{x:Type ListBox}">
-            <Setter Property="SelectionMode"
-                    Value="Single" />
-            <Setter Property="Margin"
-                    Value="0" />
-            <Setter Property="Padding"
-                    Value="0" />
-            <Setter Property="Height"
-                    Value="0" />
-            <Setter Property="BorderThickness"
-                    Value="0" />
-            <Setter Property="Background"
-                    Value="{StaticResource SCB_11FFFFFF}" />
-            <Setter Property="Template"
-                    Value="{StaticResource MusicListTemptale}" />
-            <Setter Property="ItemContainerStyle"
-                    Value="{StaticResource MusicListItemStyle}" />
+            <Setter Property="SelectionMode" Value="Single" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Height" Value="0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="{StaticResource SCB_11FFFFFF}" />
+            <Setter Property="Template" Value="{StaticResource MusicListTemptale}" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource MusicListItemStyle}" />
             <Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"
-                                    IsItemsHost="True" />
+                        <StackPanel IsItemsHost="True"
+                                    Orientation="Vertical" />
                     </ItemsPanelTemplate>
                 </Setter.Value>
             </Setter>
 
-            <!--Triggers-->
+            <!--  Triggers  -->
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=GrdMusicsContent, Path=IsMouseOver}"
                              Value="True">
@@ -381,14 +316,14 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.Height)"
-                                                 Duration="0:0:0.3"
                                                  From="0"
-                                                 To="500" />
+                                                 To="500"
+                                                 Duration="0:0:0.3" />
 
                                 <ColorAnimation Storyboard.TargetProperty="(ListBox.Background).(SolidColorBrush.Color)"
-                                                Duration="0:0:0.3"
                                                 From="{StaticResource Color_11FFFFFF}"
-                                                To="{StaticResource Color_99FFFFFF}" />
+                                                To="{StaticResource Color_99FFFFFF}"
+                                                Duration="0:0:0.3" />
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.EnterActions>
@@ -397,14 +332,14 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="(FrameworkElement.Height)"
-                                                 Duration="0:0:0.3"
                                                  From="500"
-                                                 To="0" />
+                                                 To="0"
+                                                 Duration="0:0:0.3" />
 
                                 <ColorAnimation Storyboard.TargetProperty="(ListBox.Background).(SolidColorBrush.Color)"
-                                                Duration="0:0:0.3"
                                                 From="{StaticResource Color_99FFFFFF}"
-                                                To="{StaticResource Color_11FFFFFF}" />
+                                                To="{StaticResource Color_11FFFFFF}"
+                                                Duration="0:0:0.3" />
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.ExitActions>
@@ -412,18 +347,18 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <!--End Window Resources-->
+    <!--  End Window Resources  -->
 
-    <!--Start Window Content-->
+    <!--  Start Window Content  -->
     <Window.Content>
-        <Border Style="{StaticResource WindowBorder}"
+        <Border x:Name="MainBorder"
                 Padding="0"
-                x:Name="MainBorder"
-                MouseDown="MainBorder_MouseDown">
-            <!--Start Window Content-->
+                MouseDown="MainBorder_MouseDown"
+                Style="{StaticResource WindowBorder}">
+            <!--  Start Window Content  -->
             <Grid>
-                <!--Start Current Music-->
-                <Grid Margin="10, 10, 10, 0">
+                <!--  Start Current Music  -->
+                <Grid Margin="10,10,10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -432,167 +367,165 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!--Start Top Action Buttons-->
+                    <!--  Start Top Action Buttons  -->
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <!--Start Close Button-->
+                        <!--  Start Close Button  -->
                         <Button Grid.Column="0"
-                                HorizontalAlignment="Left"
-                                Style="{StaticResource CircularButton}"
                                 Width="40"
+                                HorizontalAlignment="Left"
                                 Background="{StaticResource SCB_FFFFFF}"
-                                Command="{Binding CloseCommand}">
+                                Command="{Binding CloseCommand}"
+                                Style="{StaticResource CircularButton}">
                             <Grid>
-                                <Path Fill="{StaticResource SCB_704040}"
-                                      VerticalAlignment="Center"
+                                <Path Width="16"
+                                      Height="16"
                                       HorizontalAlignment="Center"
-                                      Stretch="Uniform"
-                                      Width="16"
-                                      Height="16">
+                                      VerticalAlignment="Center"
+                                      Fill="{StaticResource SCB_704040}"
+                                      Stretch="Uniform">
                                     <Path.Data>
                                         <GeometryGroup Children="{StaticResource CloseIcon}" />
                                     </Path.Data>
                                 </Path>
                             </Grid>
                         </Button>
-                        <!--End Close Button-->
+                        <!--  End Close Button  -->
 
-                        <!--Start Open File-->
+                        <!--  Start Open File  -->
                         <Button Grid.Column="1"
-                                HorizontalAlignment="Right"
-                                Style="{StaticResource CircularButton}"
                                 Width="40"
+                                HorizontalAlignment="Right"
                                 Background="{StaticResource SCB_FFFFFF}"
-                                Command="{Binding OpenFilesCommand}">
+                                Command="{Binding OpenFilesCommand}"
+                                Style="{StaticResource CircularButton}">
                             <Grid>
-                                <Path Fill="{StaticResource SCB_704040}"
-                                      VerticalAlignment="Center"
+                                <Path Width="16"
+                                      Height="16"
                                       HorizontalAlignment="Center"
-                                      Stretch="Uniform"
-                                      Width="16"
-                                      Height="16">
+                                      VerticalAlignment="Center"
+                                      Fill="{StaticResource SCB_704040}"
+                                      Stretch="Uniform">
                                     <Path.Data>
                                         <GeometryGroup Children="{StaticResource FolderIcon}" />
                                     </Path.Data>
                                 </Path>
                             </Grid>
                         </Button>
-                        <!--End Open File-->
+                        <!--  End Open File  -->
                     </Grid>
-                    <!--End Top Action Buttons-->
+                    <!--  End Top Action Buttons  -->
 
-                    <!--Start Music Cover-->
+                    <!--  Start Music Cover  -->
                     <Rectangle Grid.Row="1"
                                Width="318"
                                Height="318"
-                               Margin="0, 20, 0, 30"
-                               RadiusX="20"
-                               RadiusY="20"
+                               Margin="0,20,0,30"
+                               HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               HorizontalAlignment="Center">
+                               RadiusX="20"
+                               RadiusY="20">
                         <Rectangle.Fill>
                             <ImageBrush ImageSource="{Binding CurrentMusicCover, TargetNullValue={StaticResource MusicCoverDefaultImage}, FallbackValue={StaticResource MusicCoverDefaultImage}}" />
                         </Rectangle.Fill>
                     </Rectangle>
-                    <!--End Music Cover-->
+                    <!--  End Music Cover  -->
 
-                    <!--Start Music Title-->
+                    <!--  Start Music Title  -->
                     <StackPanel Grid.Row="2"
-                                Orientation="Vertical"
-                                VerticalAlignment="Center"
+                                Margin="0,0,0,30"
                                 HorizontalAlignment="Stretch"
-                                Margin="0, 0, 0, 30">
-                        <TextBlock Text="{Binding Title}"
-                                   TextAlignment="Center"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   Foreground="{StaticResource SCB_FFFFFF}"
-                                   FontFamily="{StaticResource Samim}"
-                                   Margin="0, 0, 0, 5" />
-                        <TextBlock Text="{Binding Caption}"
-                                   TextAlignment="Center"
-                                   FontWeight="Regular"
-                                   FontSize="12"
-                                   Foreground="{StaticResource SCB_B2B2B2}"
-                                   FontFamily="{StaticResource Samim}"
-                                   Margin="0, 0, 0, 5" />
-                    </StackPanel>
-                    <!--End Music Title-->
-
-                    <!--Start Progress Bar-->
-                    <StackPanel Grid.Row="3"
-                                Orientation="Vertical"
-                                HorizontalAlignment="Center">
-                        <Slider Style="{StaticResource HorizontalSliderStyle}"
-                                Minimum="0"
-                                Maximum="100"
                                 VerticalAlignment="Center"
-                                Width="318"
-                                Value="{Binding SliderValue, Mode=TwoWay}"
-                                IsSelectionRangeEnabled="False" />
+                                Orientation="Vertical">
+                        <TextBlock Margin="0,0,0,5"
+                                   FontFamily="{StaticResource Samim}"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource SCB_FFFFFF}"
+                                   Text="{Binding Title}"
+                                   TextAlignment="Center" />
+                        <TextBlock Margin="0,0,0,5"
+                                   FontFamily="{StaticResource Samim}"
+                                   FontSize="12"
+                                   FontWeight="Regular"
+                                   Foreground="{StaticResource SCB_B2B2B2}"
+                                   Text="{Binding Caption}"
+                                   TextAlignment="Center" />
+                    </StackPanel>
+                    <!--  End Music Title  -->
 
-                        <!--Start Duration-->
-                        <Grid Margin="0, 5, 0, 0">
+                    <!--  Start Progress Bar  -->
+                    <StackPanel Grid.Row="3"
+                                HorizontalAlignment="Center"
+                                Orientation="Vertical">
+                        <Slider Width="318"
+                                VerticalAlignment="Center"
+                                IsSelectionRangeEnabled="False"
+                                Maximum="100"
+                                Minimum="0"
+                                Style="{StaticResource HorizontalSliderStyle}"
+                                Value="{Binding SliderValue, Mode=TwoWay}" />
+
+                        <!--  Start Duration  -->
+                        <Grid Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0"
-                                       FontFamily="{StaticResource Samim}"
                                        HorizontalAlignment="Left"
+                                       FontFamily="{StaticResource Samim}"
                                        Foreground="{StaticResource SCB_B2B2B2}"
                                        Text="{Binding Elapsed}" />
 
                             <TextBlock Grid.Column="1"
-                                       FontFamily="{StaticResource Samim}"
                                        HorizontalAlignment="Right"
+                                       FontFamily="{StaticResource Samim}"
                                        Foreground="{StaticResource SCB_B2B2B2}"
                                        Text="{Binding Duration}" />
                         </Grid>
-                        <!--End Duration-->
+                        <!--  End Duration  -->
                     </StackPanel>
-                    <!--End Progress Bar-->
+                    <!--  End Progress Bar  -->
 
-                    <!--Start Action Buttons-->
+                    <!--  Start Action Buttons  -->
                     <StackPanel Grid.Row="4"
-                                Orientation="Horizontal"
+                                Margin="0,15"
                                 HorizontalAlignment="Center"
-                                Margin="0 15">
-                        <!--Start Shuffle Button-->
+                                Orientation="Horizontal">
+                        <!--  Start Shuffle Button  -->
                         <Button Grid.Column="0"
-                                HorizontalAlignment="Left"
                                 Width="40"
-                                Style="{StaticResource CircularButton}"
+                                HorizontalAlignment="Left"
                                 Background="{StaticResource SCB_TransParent}"
-                                Command="{Binding ShuffleCommand}">
+                                Command="{Binding ShuffleCommand}"
+                                Style="{StaticResource CircularButton}">
                             <Grid>
-                                <Path VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      Stretch="Uniform"
-                                      Width="16"
+                                <Path Width="16"
                                       Height="16"
-                                      Fill="{StaticResource SCB_FFFFFF}">
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Fill="{StaticResource SCB_FFFFFF}"
+                                      Stretch="Uniform">
                                     <Path.Data>
                                         <GeometryGroup Children="{StaticResource ShuffleIcon}" />
                                     </Path.Data>
 
-                                    <!--Styles-->
+                                    <!--  Styles  -->
                                     <Path.Style>
                                         <Style TargetType="{x:Type Path}">
-                                            <Setter Property="Opacity"
-                                                    Value="0.4" />
+                                            <Setter Property="Opacity" Value="0.4" />
 
-                                            <!--Triggers-->
+                                            <!--  Triggers  -->
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsShuffleEnabled}"
                                                              Value="True">
-                                                    <Setter Property="Opacity"
-                                                            Value="1" />
+                                                    <Setter Property="Opacity" Value="1" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -600,80 +533,80 @@
                                 </Path>
                             </Grid>
                         </Button>
-                        <!--End Shuffle Button-->
+                        <!--  End Shuffle Button  -->
 
-                        <!--Start Splitter-->
+                        <!--  Start Splitter  -->
                         <Rectangle Width="5" />
-                        <!--End Splitter-->
+                        <!--  End Splitter  -->
 
-                        <!--Start Backward Button-->
+                        <!--  Start Backward Button  -->
                         <Button Grid.Column="0"
-                                HorizontalAlignment="Left"
                                 Width="40"
-                                Style="{StaticResource CircularButton}"
+                                HorizontalAlignment="Left"
                                 Background="{StaticResource SCB_TransParent}"
-                                Command="{Binding BackwardCommand}">
+                                Command="{Binding BackwardCommand}"
+                                Style="{StaticResource CircularButton}">
                             <Grid>
-                                <Path VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      Stretch="Uniform"
-                                      Width="16"
+                                <Path Width="16"
                                       Height="16"
-                                      Fill="{StaticResource SCB_FFFFFF}">
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Fill="{StaticResource SCB_FFFFFF}"
+                                      Stretch="Uniform">
                                     <Path.Data>
                                         <GeometryGroup Children="{StaticResource BackwardIcon}" />
                                     </Path.Data>
                                 </Path>
                             </Grid>
                         </Button>
-                        <!--End Backward Button-->
+                        <!--  End Backward Button  -->
 
-                        <!--Start Splitter-->
+                        <!--  Start Splitter  -->
                         <Rectangle Width="5" />
-                        <!--End Splitter-->
+                        <!--  End Splitter  -->
 
-                        <!--Start Previous Button-->
+                        <!--  Start Previous Button  -->
                         <Button Grid.Column="0"
-                                HorizontalAlignment="Left"
                                 Width="40"
-                                Style="{StaticResource CircularButton}"
+                                HorizontalAlignment="Left"
                                 Background="{StaticResource SCB_TransParent}"
-                                Command="{Binding PreviousCommand}">
+                                Command="{Binding PreviousCommand}"
+                                Style="{StaticResource CircularButton}">
                             <Grid>
-                                <Path VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      Stretch="Uniform"
-                                      Width="16"
+                                <Path Width="16"
                                       Height="16"
-                                      Fill="{StaticResource SCB_FFFFFF}">
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Fill="{StaticResource SCB_FFFFFF}"
+                                      Stretch="Uniform">
                                     <Path.Data>
                                         <GeometryGroup Children="{StaticResource PreviousIcon}" />
                                     </Path.Data>
                                 </Path>
                             </Grid>
                         </Button>
-                        <!--End Previous Button-->
+                        <!--  End Previous Button  -->
 
-                        <!--Start Splitter-->
+                        <!--  Start Splitter  -->
                         <Rectangle Width="5" />
-                        <!--End Splitter-->
+                        <!--  End Splitter  -->
 
-                        <!--Start Play/Stop Button-->
+                        <!--  Start Play/Stop Button  -->
                         <Button Grid.Column="0"
-                                HorizontalAlignment="Left"
                                 Width="60"
-                                Style="{StaticResource CircularButton}"
+                                HorizontalAlignment="Left"
                                 Background="{StaticResource SCB_FFFFFF}"
-                                Command="{Binding PlayStopCommand}">
+                                Command="{Binding PlayStopCommand}"
+                                Style="{StaticResource CircularButton}">
                             <Grid>
-                                <Path VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      Stretch="Uniform"
-                                      Width="16"
+                                <Path Width="16"
                                       Height="16"
-                                      Fill="{StaticResource SCB_704040}">
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Fill="{StaticResource SCB_704040}"
+                                      Stretch="Uniform">
 
-                                    <!--Style-->
+                                    <!--  Style  -->
                                     <Path.Style>
                                         <Style TargetType="{x:Type Path}">
                                             <Setter Property="Data">
@@ -682,7 +615,7 @@
                                                 </Setter.Value>
                                             </Setter>
 
-                                            <!--Triggers-->
+                                            <!--  Triggers  -->
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsStoped}"
                                                              Value="True">
@@ -698,94 +631,92 @@
                                 </Path>
                             </Grid>
                         </Button>
-                        <!--End Play/Stop Button-->
+                        <!--  End Play/Stop Button  -->
 
-                        <!--Start Splitter-->
+                        <!--  Start Splitter  -->
                         <Rectangle Width="5" />
-                        <!--End Splitter-->
+                        <!--  End Splitter  -->
 
-                        <!--Start Next Button-->
+                        <!--  Start Next Button  -->
                         <Button Grid.Column="0"
-                                HorizontalAlignment="Left"
                                 Width="40"
-                                Style="{StaticResource CircularButton}"
+                                HorizontalAlignment="Left"
                                 Background="{StaticResource SCB_TransParent}"
-                                Command="{Binding NextCommand}">
+                                Command="{Binding NextCommand}"
+                                Style="{StaticResource CircularButton}">
                             <Grid>
-                                <Path VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      Stretch="Uniform"
-                                      Width="16"
+                                <Path Width="16"
                                       Height="16"
-                                      Fill="{StaticResource SCB_FFFFFF}">
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Fill="{StaticResource SCB_FFFFFF}"
+                                      Stretch="Uniform">
                                     <Path.Data>
                                         <GeometryGroup Children="{StaticResource NextIcon}" />
                                     </Path.Data>
                                 </Path>
                             </Grid>
                         </Button>
-                        <!--End Next Button-->
+                        <!--  End Next Button  -->
 
-                        <!--Start Splitter-->
+                        <!--  Start Splitter  -->
                         <Rectangle Width="5" />
-                        <!--End Splitter-->
+                        <!--  End Splitter  -->
 
-                        <!--Start Forward Button-->
+                        <!--  Start Forward Button  -->
                         <Button Grid.Column="0"
-                                HorizontalAlignment="Left"
                                 Width="40"
-                                Style="{StaticResource CircularButton}"
+                                HorizontalAlignment="Left"
                                 Background="{StaticResource SCB_TransParent}"
-                                Command="{Binding ForwardCommand}">
+                                Command="{Binding ForwardCommand}"
+                                Style="{StaticResource CircularButton}">
                             <Grid>
-                                <Path VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      Stretch="Uniform"
-                                      Width="16"
+                                <Path Width="16"
                                       Height="16"
-                                      Fill="{StaticResource SCB_FFFFFF}">
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Fill="{StaticResource SCB_FFFFFF}"
+                                      Stretch="Uniform">
                                     <Path.Data>
                                         <GeometryGroup Children="{StaticResource ForwardIcon}" />
                                     </Path.Data>
                                 </Path>
                             </Grid>
                         </Button>
-                        <!--End Forward Button-->
+                        <!--  End Forward Button  -->
 
-                        <!--Start Splitter-->
+                        <!--  Start Splitter  -->
                         <Rectangle Width="5" />
-                        <!--End Splitter-->
+                        <!--  End Splitter  -->
 
-                        <!--Start Repeat Button-->
+                        <!--  Start Repeat Button  -->
                         <Button Grid.Column="0"
-                                HorizontalAlignment="Left"
                                 Width="40"
-                                Style="{StaticResource CircularButton}"
+                                HorizontalAlignment="Left"
                                 Background="{StaticResource SCB_TransParent}"
-                                Command="{Binding RepeatCommand}">
+                                Command="{Binding RepeatCommand}"
+                                Style="{StaticResource CircularButton}">
                             <Grid>
-                                <Path VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      Stretch="Uniform"
-                                      Width="16"
+                                <Path Width="16"
                                       Height="16"
-                                      Fill="{StaticResource SCB_FFFFFF}">
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Fill="{StaticResource SCB_FFFFFF}"
+                                      Stretch="Uniform">
                                     <Path.Data>
                                         <GeometryGroup Children="{StaticResource RepeatIcon}" />
                                     </Path.Data>
 
-                                    <!--Styles-->
+                                    <!--  Styles  -->
                                     <Path.Style>
                                         <Style TargetType="{x:Type Path}">
-                                            <Setter Property="Opacity"
-                                                    Value="0.4" />
+                                            <Setter Property="Opacity" Value="0.4" />
 
-                                            <!--Triggers-->
+                                            <!--  Triggers  -->
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsRepeatEnabled}"
                                                              Value="True">
-                                                    <Setter Property="Opacity"
-                                                            Value="1" />
+                                                    <Setter Property="Opacity" Value="1" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -793,23 +724,23 @@
                                 </Path>
                             </Grid>
                         </Button>
-                        <!--End Repeat Button-->
+                        <!--  End Repeat Button  -->
                     </StackPanel>
-                    <!--End Action Buttons-->
+                    <!--  End Action Buttons  -->
                 </Grid>
-                <!--End Current Music-->
+                <!--  End Current Music  -->
 
-                <!--Start Musics Content-->
-                <Grid VerticalAlignment="Bottom"
-                      x:Name="GrdMusicsContent">
-                    <!--Start Selected Music-->
-                    <Border Background="{StaticResource SCB_11FFFFFF}"
-                            CornerRadius="10"
-                            Margin="0"
-                            Padding="15, 11"
-                            BorderThickness="0"
+                <!--  Start Musics Content  -->
+                <Grid x:Name="GrdMusicsContent"
+                      VerticalAlignment="Bottom">
+                    <!--  Start Selected Music  -->
+                    <Border Margin="0"
+                            Padding="15,11"
+                            HorizontalAlignment="Stretch"
                             VerticalAlignment="Bottom"
-                            HorizontalAlignment="Stretch">
+                            Background="{StaticResource SCB_11FFFFFF}"
+                            BorderThickness="0"
+                            CornerRadius="10">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -817,45 +748,45 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <!--Start Music Duration-->
+                            <!--  Start Music Duration  -->
                             <TextBlock Grid.Column="0"
-                                       Text="{Binding SelectedMusic.Duration, TargetNullValue={x:Null}, FallbackValue={x:Null}}"
-                                       Foreground="{StaticResource SCB_FFFFFF}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
                                        FontFamily="{StaticResource Samim}"
                                        FontSize="12"
-                                       VerticalAlignment="Top"
-                                       HorizontalAlignment="Left" />
-                            <!--End Music Duration-->
+                                       Foreground="{StaticResource SCB_FFFFFF}"
+                                       Text="{Binding SelectedMusic.Duration, TargetNullValue={x:Null}, FallbackValue={x:Null}}" />
+                            <!--  End Music Duration  -->
 
-                            <!--Start Title and Description-->
+                            <!--  Start Title and Description  -->
                             <StackPanel Grid.Column="1"
-                                        Orientation="Vertical"
-                                        Margin="15, 0">
+                                        Margin="15,0"
+                                        Orientation="Vertical">
                                 <TextBlock Grid.Row="0"
-                                           Text="{Binding SelectedMusic.Title, TargetNullValue={x:Null}, FallbackValue={x:Null}}"
-                                           Foreground="{StaticResource SCB_FFFFFF}"
+                                           Margin="0,0,0,5"
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Top"
                                            FontFamily="{StaticResource Samim}"
                                            FontSize="12"
-                                           VerticalAlignment="Top"
-                                           HorizontalAlignment="Stretch"
+                                           Foreground="{StaticResource SCB_FFFFFF}"
+                                           Text="{Binding SelectedMusic.Title, TargetNullValue={x:Null}, FallbackValue={x:Null}}"
                                            TextAlignment="Right"
                                            TextTrimming="CharacterEllipsis"
-                                           TextWrapping="NoWrap"
-                                           Margin="0, 0, 0, 5" />
+                                           TextWrapping="NoWrap" />
 
                                 <TextBlock Grid.Row="0"
-                                           Text="{Binding SelectedMusic.Caption, TargetNullValue={x:Null}, FallbackValue={x:Null}}"
                                            HorizontalAlignment="Stretch"
-                                           TextAlignment="Right"
-                                           Foreground="{StaticResource SCB_B2B2B2}"
-                                           FontSize="12"
                                            FontFamily="{StaticResource Samim}"
+                                           FontSize="12"
+                                           Foreground="{StaticResource SCB_B2B2B2}"
+                                           Text="{Binding SelectedMusic.Caption, TargetNullValue={x:Null}, FallbackValue={x:Null}}"
+                                           TextAlignment="Right"
                                            TextTrimming="CharacterEllipsis"
                                            TextWrapping="NoWrap" />
                             </StackPanel>
-                            <!--End Title and Description-->
+                            <!--  End Title and Description  -->
 
-                            <!--Start Music Cover-->
+                            <!--  Start Music Cover  -->
                             <Rectangle Grid.Column="2"
                                        Width="43"
                                        Height="43"
@@ -865,29 +796,26 @@
                                     <ImageBrush ImageSource="{Binding SelectedMusic.Cover, TargetNullValue={StaticResource MusicCoverDefaultImage}, FallbackValue={StaticResource MusicCoverDefaultImage}}" />
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <!--End Music Cover-->
+                            <!--  End Music Cover  -->
                         </Grid>
 
-                        <!--Style-->
+                        <!--  Style  -->
                         <Border.Style>
                             <Style TargetType="{x:Type Border}">
-                                <Setter Property="Height"
-                                        Value="65" />
-                                <Setter Property="Visibility"
-                                        Value="{Binding SelectedMusic, Converter={StaticResource SelectedMusicVisibilityConverter}}" />
+                                <Setter Property="Height" Value="65" />
+                                <Setter Property="Visibility" Value="{Binding SelectedMusic, Converter={StaticResource SelectedMusicVisibilityConverter}}" />
 
-                                <!--Triggers-->
+                                <!--  Triggers  -->
                                 <Style.Triggers>
-                                    <Trigger Property="Visibility"
-                                             Value="Visible">
+                                    <Trigger Property="Visibility" Value="Visible">
                                         <Trigger.EnterActions>
                                             <BeginStoryboard>
                                                 <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="(Border.Height)"
-                                                                     BeginTime="0:0:1"
-                                                                     Duration="0:0:0.3"
+                                                    <DoubleAnimation BeginTime="0:0:1"
+                                                                     Storyboard.TargetProperty="(Border.Height)"
                                                                      From="0"
-                                                                     To="65" />
+                                                                     To="65"
+                                                                     Duration="0:0:0.3" />
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </Trigger.EnterActions>
@@ -895,11 +823,11 @@
                                         <Trigger.ExitActions>
                                             <BeginStoryboard>
                                                 <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="(Border.Height)"
-                                                                     BeginTime="0:0:1"
-                                                                     Duration="0:0:0.3"
+                                                    <DoubleAnimation BeginTime="0:0:1"
+                                                                     Storyboard.TargetProperty="(Border.Height)"
                                                                      From="65"
-                                                                     To="0" />
+                                                                     To="0"
+                                                                     Duration="0:0:0.3" />
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </Trigger.ExitActions>
@@ -908,24 +836,24 @@
                             </Style>
                         </Border.Style>
                     </Border>
-                    <!--End Selected Music-->
+                    <!--  End Selected Music  -->
 
-                    <!--Start Music List-->
-                    <ListBox Style="{StaticResource MusicList}"
-                             ItemsSource="{Binding Musics}"
-                             SelectedItem="{Binding SelectedMusic, Mode=TwoWay}" />
-                    <!--End Music List-->
+                    <!--  Start Music List  -->
+                    <ListBox ItemsSource="{Binding Musics}"
+                             SelectedItem="{Binding SelectedMusic, Mode=TwoWay}"
+                             Style="{StaticResource MusicList}" />
+                    <!--  End Music List  -->
                 </Grid>
-                <!--End Musics Content-->
+                <!--  End Musics Content  -->
 
-                <!--Start MediaElement-->
-                <MediaElement Visibility="Collapsed"
+                <!--  Start MediaElement  -->
+                <MediaElement x:Name="MelMusicPlayer"
                               LoadedBehavior="Manual"
-                              x:Name="MelMusicPlayer" />
-                <!--End MediaElement-->
+                              Visibility="Collapsed" />
+                <!--  End MediaElement  -->
             </Grid>
-            <!--End Window Content-->
+            <!--  End Window Content  -->
         </Border>
     </Window.Content>
-    <!--End Window Content-->
+    <!--  End Window Content  -->
 </Window>
